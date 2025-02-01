@@ -1,0 +1,611 @@
+% !TEX program = lualatex
+% !BIB program = biber
+
+% arara: lualatex: {shell: yes} 
+% arara: biber 
+% arara: makeindex 
+% arara: lualatex: {shell: yes} 
+% arara: lualatex: {shell: yes} 
+
+\documentclass[a4 paper, 12pt]{article} 
+% \usepackage[bindingoffset=30mm, left=2cm, right=2cm]{geometry} 
+% \documentclass[oneside]{book} 
+% \usepackage[papersize={19.2cm,10.8cm}, left=1.5cm, right=1.5cm, bottom=2cm]{geometry}
+
+\usepackage[ngerman, italian, english]{babel}
+\PassOptionsToPackage{
+    math-style=ISO, 
+    bold-style=ISO, 
+    sans-style=italic, 
+    nabla=upright, 
+    partial=upright, 
+    warnings-off={mathtools-colon, mathtools-overbracket}
+}{unicode-math}
+\usepackage{mathtools, xparse}
+\usepackage[verbose=false]{microtype}
+% \usepackage{sansmathfonts}
+% \usepackage[newcmbb]{fontsetup}
+
+\usepackage{unicode-math}
+\setmainfont[%
+SizeFeatures={%
+    {Size=-8, Font=NewCM08-Book.otf,
+        ItalicFont=NewCM08-BookItalic.otf,%
+        BoldFont=NewCM10-Bold.otf,%
+        BoldItalicFont=NewCM10-BoldItalic.otf,%
+        SlantedFont=NewCM08-Book.otf,%
+        BoldSlantedFont=NewCM10-Bold.otf,%
+        SmallCapsFeatures={Numbers=OldStyle}},
+    {Size=8, Font=NewCM08-Book.otf,
+        ItalicFont=NewCM08-BookItalic.otf,%
+        BoldFont=NewCM10-Bold.otf,%
+        BoldItalicFont=NewCM10-BoldItalic.otf,%
+        SlantedFont=NewCM08-Book.otf,%
+        BoldSlantedFont=NewCM10-Bold.otf,%
+        SmallCapsFeatures={Numbers=OldStyle}},
+    {Size= 9-, Font = NewCM10-Book.otf,
+        ItalicFont=NewCM10-BookItalic.otf,%
+        BoldFont=NewCM10-Bold.otf,%
+        BoldItalicFont=NewCM10-BoldItalic.otf,%
+        SlantedFont=NewCM10-Book.otf,%
+        BoldSlantedFont=NewCM10-Bold.otf,%
+        SmallCapsFeatures={Numbers=OldStyle}}%
+},%
+SmallCapsFeatures={Numbers=OldStyle},%
+BoldSlantedFont=NewCM10-Bold.otf,%
+SlantedFont=NewCM10-Book.otf,%
+BoldItalicFont=NewCM10-BoldItalic.otf,%
+BoldFont=NewCM10-Bold.otf,%
+ItalicFont=NewCM10-BookItalic.otf,%
+SlantedFeatures={FakeSlant=0.25},%
+BoldSlantedFeatures={FakeSlant=0.25},%
+]{NewCM10-Book.otf}
+
+\setmonofont[
+    ItalicFont=NewCMMono10-Italic.otf,
+    BoldFont=NewCMMono10-Bold.otf,
+    BoldItalicFont=NewCMMono10-BoldOblique.otf,
+    SlantedFont=NewCMMono10-Regular.otf,
+    SlantedFeatures={FakeSlant=0.25},
+    BoldSlantedFont=NewCMMono10-Bold.otf,
+    BoldSlantedFeatures={FakeSlant=0.25},
+    SmallCapsFeatures={Numbers=OldStyle}
+]{NewCMMono10-Regular.otf}
+
+\setsansfont[
+    SizeFeatures={
+        {Size= -8, Font=NewCMSans08-Regular.otf,
+            ItalicFont=NewCMSans08-Oblique.otf,
+            BoldFont=NewCMSans10-Bold.otf,
+            BoldItalicFont=NewCMSans10-BoldOblique.otf,
+            SmallCapsFeatures={Numbers=OldStyle},
+        },
+        {Size= 8, Font=NewCMSans08-Regular.otf,
+            ItalicFont=NewCMSans08-Oblique.otf,
+            BoldFont=NewCMSans10-Bold.otf,
+            BoldItalicFont=NewCMSans10-BoldOblique.otf,
+            SmallCapsFeatures={Numbers=OldStyle},
+        },
+        {Size= 9-, Font=NewCMSans10-Regular.otf,
+            ItalicFont=NewCMSans10-Oblique.otf,
+            BoldFont=NewCMSans10-Bold.otf,
+            BoldItalicFont=NewCMSans10-BoldOblique.otf,
+            SmallCapsFeatures={Numbers=OldStyle},
+        }},
+    ItalicFont=NewCMSans10-Oblique.otf,
+    BoldFont=NewCMSans10-Bold.otf,%
+    BoldItalicFont=NewCMSans10-BoldOblique.otf,
+    SmallCapsFeatures={Numbers=OldStyle},
+    SlantedFont=NewCMSans10-Oblique.otf,
+    BoldSlantedFont=NewCMSans10-BoldOblique.otf,
+]{NewCMSans10-Regular.otf}
+
+% \setmathfont[StylisticSet={3}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Book.otf}
+% \setmathfont[range={\symfrak,\symbffrak}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Regular.otf}
+% \makeatletter
+% \g@addto@macro\bfseries{\boldmath}
+% \makeatother
+
+% % \renewcommand*{\msansAlpha}{\char"E000}
+% % \renewcommand*{\msansBeta}{\char"E001}
+% % \renewcommand*{\msansGamma}{\char"E002}
+% % \renewcommand*{\msansDelta}{\char"E003}
+% % \renewcommand*{\msansEpsilon}{\char"E004}
+% % \renewcommand*{\msansZeta}{\char"E005}
+% % \renewcommand*{\msansEta}{\char"E006}
+% % \renewcommand*{\msansTheta}{\char"E007}
+% % \renewcommand*{\msansIota}{\char"E008}
+% % \renewcommand*{\msansKappa}{\char"E009}
+% % \renewcommand*{\msansLambda}{\char"E00A}
+% % \renewcommand*{\msansMu}{\char"E00B}
+% % \renewcommand*{\msansNu}{\char"E00C}
+% % \renewcommand*{\msansXi}{\char"E00D}
+% % \renewcommand*{\msansOmicron}{\char"E00E}
+% % \renewcommand*{\msansPi}{\char"E00F}
+% % \renewcommand*{\msansRho}{\char"E010}
+% % \renewcommand*{\msansSigma}{\char"E011}
+% % \renewcommand*{\msansTau}{\char"E012}
+% % \renewcommand*{\msansUpsilon}{\char"E013}
+% % \renewcommand*{\msansPhi}{\char"E014}
+% % \renewcommand*{\msansChi}{\char"E015}
+% % \renewcommand*{\msansPsi}{\char"E016}
+% % \renewcommand*{\msansOmega}{\char"E017}
+% % \renewcommand*{\msansalpha}{\char"E018}
+% % \renewcommand*{\msansbeta}{\char"E019}
+% % \renewcommand*{\msansgamma}{\char"E01A}
+% % \renewcommand*{\msansdelta}{\char"E01B}
+% % \renewcommand*{\msansepsilon}{\char"E01C}
+% % \renewcommand*{\msanszeta}{\char"E01D}
+% % \renewcommand*{\msanseta}{\char"E01E}
+% % \renewcommand*{\msanstheta}{\char"E01F}
+% % \renewcommand*{\msansiota}{\char"E020}
+% % \renewcommand*{\msanskappa}{\char"E021}
+% % \renewcommand*{\msanslambda}{\char"E022}
+% % \renewcommand*{\msansmu}{\char"E023}
+% % \renewcommand*{\msansnu}{\char"E024}
+% % \renewcommand*{\msansxi}{\char"E025}
+% % \renewcommand*{\msansomicron}{\char"E026}
+% % \renewcommand*{\msanspi}{\char"E027}
+% % \renewcommand*{\msansrho}{\char"E028}
+% % \renewcommand*{\msansvarsigma}{\char"E029}
+% % \renewcommand*{\msanssigma}{\char"E02A}
+% % \renewcommand*{\msanstau}{\char"E02B}
+% % \renewcommand*{\msansupsilon}{\char"E02C}
+% % \renewcommand*{\msansphi}{\char"E02D}
+% % \renewcommand*{\msanschi}{\char"E02E}
+% % \renewcommand*{\msanspsi}{\char"E02F}
+% % \renewcommand*{\msansomega}{\char"E030}
+% % \renewcommand*{\msansvarepsilon}{\char"E031}
+
+% % \renewcommand*{\mitsansAlpha}{\char"E041}
+% % \renewcommand*{\mitsansBeta}{\char"E042}
+% % \renewcommand*{\mitsansGamma}{\char"E043}
+% % \renewcommand*{\mitsansDelta}{\char"E044}
+% % \renewcommand*{\mitsansEpsilon}{\char"E045}
+% % \renewcommand*{\mitsansZeta}{\char"E046}
+% % \renewcommand*{\mitsansEta}{\char"E047}
+% % \renewcommand*{\mitsansTheta}{\char"E048}
+% % \renewcommand*{\mitsansIota}{\char"E049}
+% % \renewcommand*{\mitsansKappa}{\char"E04A}
+% % \renewcommand*{\mitsansLambda}{\char"E04B}
+% % \renewcommand*{\mitsansMu}{\char"E04C}
+% % \renewcommand*{\mitsansNu}{\char"E04D}
+% % \renewcommand*{\mitsansXi}{\char"E04E}
+% % \renewcommand*{\mitsansOmicron}{\char"E04F}
+% % \renewcommand*{\mitsansPi}{\char"E050}
+% % \renewcommand*{\mitsansRho}{\char"E051}
+% % \renewcommand*{\mitsansSigma}{\char"E052}
+% % \renewcommand*{\mitsansTau}{\char"E053}
+% % \renewcommand*{\mitsansUpsilon}{\char"E054}
+% % \renewcommand*{\mitsansPhi}{\char"E055}
+% % \renewcommand*{\mitsansChi}{\char"E056}
+% % \renewcommand*{\mitsansPsi}{\char"E057}
+% % \renewcommand*{\mitsansOmega}{\char"E058}
+% % \renewcommand*{\mitsansalpha}{\char"E059}
+% % \renewcommand*{\mitsansbeta}{\char"E05A}
+% % \renewcommand*{\mitsansgamma}{\char"E05B}
+% % \renewcommand*{\mitsansdelta}{\char"E05C}
+% % \renewcommand*{\mitsansepsilon}{\char"E05D}
+% % \renewcommand*{\mitsanszeta}{\char"E05E}
+% % \renewcommand*{\mitsanseta}{\char"E05F}
+% % \renewcommand*{\mitsanstheta}{\char"E060}
+% % \renewcommand*{\mitsansiota}{\char"E061}
+% % \renewcommand*{\mitsanskappa}{\char"E062}
+% % \renewcommand*{\mitsanslambda}{\char"E063}
+% % \renewcommand*{\mitsansmu}{\char"E064}
+% % \renewcommand*{\mitsansnu}{\char"E065}
+% % \renewcommand*{\mitsansxi}{\char"E066}
+% % \renewcommand*{\mitsansomicron}{\char"E067}
+% % \renewcommand*{\mitsanspi}{\char"E068}
+% % \renewcommand*{\mitsansrho}{\char"E069}
+% % \renewcommand*{\mitsansvarsigma}{\char"E06A}
+% % \renewcommand*{\mitsanssigma}{\char"E06B}
+% % \renewcommand*{\mitsanstau}{\char"E06C}
+% % \renewcommand*{\mitsansupsilon}{\char"E06D}
+% % \renewcommand*{\mitsansphi}{\char"E06E}
+% % \renewcommand*{\mitsanschi}{\char"E06F}
+% % \renewcommand*{\mitsanspsi}{\char"E070}
+% % \renewcommand*{\mitsansomega}{\char"E071}
+% % \renewcommand*{\mitsansvarepsilon}{\char"E072}
+
+\setmathfont[StylisticSet={3}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Book.otf}
+\setmathfont[StylisticSet={3}, BoldFont = NewCMMath-Bold.otf, version=serif]{NewCMMath-Book.otf}
+\setmathfont[range={\symfrak,\symbffrak}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Regular.otf}
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+
+% \DeclareMathAlphabet\cmmathcal{OMS}{cmsy}{m}{n}
+% \renewcommand{\mathcal}{\cmmathcal}
+% \DeclareFontFamily{U}{mathc}{}
+% \DeclareFontShape{U}{mathc}{m}{it}%
+% {<->s*[1.03] mathc10}{}
+% \DeclareMathAlphabet{\cmmathcal}{U}{mathc}{m}{it}
+% \renewcommand{\mathcal}{\cmmathcal}
+% \let\symcal\mathcal
+
+% \DeclareMathAlphabet\mymathbfcal{OMS}{cmsy}{b}{n}
+% \let\mathbfcal\mymathbfcal
+% \let\symbfcal\mymathbfcal
+
+% % \setmathfont[range=bfsfit/{greek}]{Latin Modern Math}
+
+\setmathfont[version=sans]{NewCMSansMath-Regular.otf}
+\newfontfamily\sanstext[
+    SizeFeatures={
+        {Size= -8, Font=NewCMSans08-Regular.otf,
+            ItalicFont=NewCMSans08-Oblique.otf,
+            BoldFont=NewCMSans10-Bold.otf,
+            BoldItalicFont=NewCMSans10-BoldOblique.otf,
+            SmallCapsFeatures={Numbers=OldStyle},
+        },
+        {Size= 8, Font=NewCMSans08-Regular.otf,
+            ItalicFont=NewCMSans08-Oblique.otf,
+            BoldFont=NewCMSans10-Bold.otf,
+            BoldItalicFont=NewCMSans10-BoldOblique.otf,
+            SmallCapsFeatures={Numbers=OldStyle},
+        },
+        {Size= 9-, Font=NewCMSans10-Regular.otf,
+            ItalicFont=NewCMSans10-Oblique.otf,
+            BoldFont=NewCMSans10-Bold.otf,
+            BoldItalicFont=NewCMSans10-BoldOblique.otf,
+            SmallCapsFeatures={Numbers=OldStyle},
+        }},
+    ItalicFont=NewCMSans10-Oblique.otf,
+    BoldFont=NewCMSans10-Bold.otf,%
+    BoldItalicFont=NewCMSans10-BoldOblique.otf,
+    SmallCapsFeatures={Numbers=OldStyle},
+    SlantedFont=NewCMSans10-Oblique.otf,
+    BoldSlantedFont=NewCMSans10-BoldOblique.otf,
+]{NewCMSans10-Regular.otf}
+
+\DeclareSymbolFont{mathds}{U}{dsss}{m}{n}
+\DeclareMathAlphabet{\mathds}{U}{dsss}{m}{n}
+\let\originalsymbb\symbb
+\let\originalmathbb\mathbb
+
+\AtBeginEnvironment{figure}{\sanstext\mathversion{sans}\renewcommand{\symbb}{\mathds}\renewcommand{\mathbb}{\mathds}}
+\AtBeginEnvironment{table}{\sanstext\mathversion{sans}\renewcommand{\symbb}{\mathds}\renewcommand{\mathbb}{\mathds}} 
+\AfterEndEnvironment{figure}{\normalfont\mathversion{serif}\setmathfont[range={\symfrak,\symbffrak}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Regular.otf}\let\symbb\originalsymbb\let\mathbb\originalmathbb}
+\AfterEndEnvironment{table}{\normalfont\mathversion{serif}\setmathfont[range={\symfrak,\symbffrak}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Regular.otf}\let\symbb\originalsymbb\let\mathbb\originalmathbb}
+
+% \usepackage[gfsneohellenic]{fontsetup}
+% \usepackage{concmath-otf}
+
+% \setmainfont{Cambria}
+% \setmathfont{Cambria Math}
+% \setmonofont{Consolas}
+% \setsansfont{Calibri}
+
+\usepackage[style=british]{csquotes}
+% \DeclareSymbolFont{mathds}{U}{dsss}{m}{n}
+% \DeclareMathAlphabet{\mathds}{U}{dsss}{m}{n}
+% \let\symbb\mathds
+
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+\newtheorem{remark}{Remark}
+
+\usepackage{silence}
+\WarningFilter{latex}{Writing or overwriting file}
+\begin{filecontents}[overwrite]{schuller_hydrogen.bib}
+    @unpublished{Schuller,
+        author = {Schuller, Frederic and Rea, Simon and Dadhley, Richie},
+        institution = {\selectlanguage{ngerman}Friedrich-Alexander-Universität Erlangen-Nürnberg, Institut für Theoretische Physik III\selectlanguage{english}},
+        title = {Lectures on Quantum Theory},
+        url = {https://docs.wixstatic.com/ugd/6b203f_a94140db21404ae69fd8b367d9fcd360.pdf},
+        year = {2019},
+        note = {Lecture notes in \texttt{.pdf} format. Lecturer: Prof.\@ Frederic Paul Schuller}
+    }
+
+    @misc{SchullerVideos,
+        author = {Schuller, Frederic},
+        title = {Lectures on Quantum Theory},
+        url = {https://youtube.com/playlist?list=PLPH7f_7ZlzxQVx5jRjbfRGEzWY_upS5K6},
+        year = {2015},
+        note = {Video lectures on YouTube.}
+    }
+
+    @misc{Schuller_geometric_notes,
+        author = {Schuller, Frederic and Rea, Simon and Dadhley, Richie},
+        institution = {\selectlanguage{ngerman}Friedrich-Alexander-Universität Erlangen-Nürnberg, Institut für Theoretische Physik III\selectlanguage{english}},
+        title = {Lectures on the Geometric Anatomy of Theoretical Physics},
+        url = {https://drive.google.com/file/d/1nchF1fRGSY3R3rP1QmjUg7fe28tAS428/view},
+        year = {2017},
+        note = {Lecture notes in \texttt{.pdf} format. Lecturer: Prof.\@ Frederic Paul Schuller}
+    }
+
+    @misc{Schuller_geometric_videos,
+        author = {Schuller, Frederic},
+        title = {Lectures on the Geometric Anatomy of Theoretical Physics},
+        url = {https://www.youtube.com/playlist?list=PLPH7f_7ZlzxTi6kS4vCmv4ZKm9u8g5yic},
+        year = {2016},
+        note = {Video lectures on YouTube.}
+    }
+
+    @book{Bowers,
+        author = {Bowers, Philip},
+        isbn = {978-1-108-42976-4},
+        publisher = {Cambridge University Press, Cambridge},
+        title = {Lectures on Quantum Mechanics},
+        year = {2020}
+    }
+
+    @book{Reed,
+        author = {Reed, Michael and Simon, Barry},
+        isbn = {978-0-080-57048-8},
+        publisher = {Academic Press, Inc. London},
+        title = {Methods of Modern Mathematical Analysis I: Functional Analysis},
+        edition = {Revised and Enlarged editon},
+        year = {1980},
+        volume = 1,
+    }
+
+    @misc{MorettiDomain,
+        author = {Valter Moretti (\url{https://physics.stackexchange.com/users/35354/valter-moretti})},
+        howpublished = {Physics Stack Exchange (\url{https://physics.stackexchange.com})},
+        note = {(version: 2014-07-23 00:40:35Z)},
+        title = {Answer to the question `What are the proper domains of the position and squared angular momentum operator?'},
+        url = {https://physics.stackexchange.com/a/127629/81224}
+    }
+
+    @misc{MorettiPeter,
+        author = {Valter Moretti (\url{https://physics.stackexchange.com/users/35354/valter-moretti})},
+        howpublished = {Physics Stack Exchange (\url{https://physics.stackexchange.com})},
+        note = {(version: 2024-05-17 21:03:48Z)},
+        title = {Answer to the question `Angular momentum Lie algebra for infinite-dimensional Hilbert spaces'},
+        url = {https://physics.stackexchange.com/a/814882/81224}
+    }
+
+    @book{MorettiSpectral,
+        author = {Moretti, Valter},
+        isbn = {978-3-319-70705-1},
+        publisher = {Springer Nature Switzerland AG},
+        title = {Spectral Theory and Quantum Mechanics: Mathematical Foundations of Quantum Theories, Symmetries and Introduction to the Algebraic Formulation},
+        edition = {2},
+        year = {2018},
+        addendum = {Translated from Italian by Simon G.\ Choissi.}
+    }
+
+    @book{MorettiFundamental,
+        author = {Moretti, Valter},
+        isbn = {978-3-030-18345-5},
+        publisher = {Springer Nature Switzerland AG},
+        title = {Fundamental Mathematical Structures of Quantum Theory: Spectral Theory, Foundational Issues, Symmetries, Algebraic Formulation},
+        year = {20189}
+    }
+
+    @book{Teschl,
+        author = {Teschl, Gerald},
+        isbn = {978-1-4704-1704-8},
+        publisher = {American Mathematical Society, Providence, Rhode Island},
+        edition = {2},
+        title = {Mathematical Methods in Quantum Mechanics: With Applications to Schr\"odinger Operators},
+        year = {2014},
+        note = {The book is freely available in \texttt{.pdf} format on the author's website at \url{https://www.mat.univie.ac.at/~gerald/ftp/book-schroe/schroe.pdf}.}
+    }
+
+    @book{Prugovecki,
+        author = {Prugove\v{c}ki , Eduard},
+        title = {Quantum Mechanics in Hilbert Space},
+        edition = {2},
+        year = {1981},
+        publisher = {Academic Press, Inc. London},
+        isbn = {0-12-566060-X}
+    }
+
+    @book{Hall,
+        author = {Brian C.\ Hall},
+        title = {Quantum Theory for Mathematicians},
+        year = {2013},
+        publisher = {Springer Science+Business Media New York},
+        isbn = {978-1-4614-7115-8}
+    }
+
+    @book{Gustafson,
+        author = {Gustafson, Stephen J. and Sigal, Israel Michael},
+        title = {Mathematical Concepts of Quantum Mechanics},
+        edition = {2},
+        publisher = {Springer-Verlag Berlin Heidelberg},
+        year = {2011},
+        isbn = {978-3-642-21865-1}
+    }
+
+    @article{Nelson,
+        author = {Nelson, Edward},
+        doi = {10.2307/1970331},
+        journaltitle = {Annals of Mathematics},
+        number = {3},
+        pages = {572--615},
+        publisher = {Annals of Mathematics, Trustees of Princeton University on Behalf of the Annals of Mathematics, Mathematics Department, Princeton University},
+        title = {Analytic Vectors},
+        volume = {70},
+        year = {1959}
+    }
+
+\end{filecontents}
+
+\usepackage[sorting=none, hyperref, backref]{biblatex}
+\addbibresource{schuller_hydrogen.bib}
+\usepackage{bibentry}
+
+\usepackage{embedall}
+\embedfile[desc = bibliography source file]{schuller_hydrogen.bib}
+
+\usepackage{imakeidx}
+\makeindex[intoc]
+
+\usepackage{xurl}
+\usepackage[numbered]{bookmark}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{subcaption}
+% \captionsetup[figure]{font=sf, labelfont=sf, textfont=sf}
+% \subcaptionsetup[figure]{textfont=sf}
+% \captionsetup[table]{font=sf, labelfont=sf, textfont=sf}
+% \subcaptionsetup[table]{textfont=sf}
+
+\usepackage{tikz}
+\usetikzlibrary{intersections, datavisualization, datavisualization.polar,datavisualization.formats.functions, fpu, calc, arrows.meta, bending, positioning, 3d, quotes, angles, decorations.pathmorphing, backgrounds, fit, babel, hobby, decorations.markings}
+
+\tikzset{
+    std line width/.style={
+        line width = 0.74pt,
+    },
+    hollow circle/.style={
+        draw, std line width, circle, inner sep=0pt, minimum size=3pt, outer sep=0pt
+    }
+    % every arrow/.style={-{Straight Barb}
+    % }
+}
+
+\newcommand{\ltwo}{\symrm{L\kern-0.5pt^2}}
+\newcommand{\position}{\symrm{Q}}
+\newcommand{\momentum}{\symrm{P}}
+\newcommand{\rthree}{\symbb{R}^3}
+\newcommand{\rr}{\symbb{R}}
+\newcommand{\cc}{\symbb{C}}
+\newcommand{\nn}{\symbb{N}_0}
+\newcommand{\dirac}{\symrm{\delta}}
+\renewcommand*{\hbar}{\symrm{^^^^0127}}
+\renewcommand{\i}{\symrm{i}}
+\newcommand{\e}{\symrm{e}}
+\newcommand{\cinfinity}{\symrm{C}^\infty}
+\newcommand{\domain}{\symcal{D}}
+\newcommand{\identity}{\symrm{id}}
+\newcommand{\der}{\operatorname{d\!}{}}
+\newcommand{\manifold}{\symcal{M}}
+\newcommand{\topology}{\symcal{O}}
+\newcommand{\atlas}{\symcal{A}}
+\newcommand{\powerset}{\symcal{P}}
+\newcommand{\ball}{B}
+
+\newcommand{\ltworthree}{\ltwo(\rr^3)}
+\newcommand{\ltworsix}{\ltwo(\rr^6)}
+\newcommand{\zz}{\symbb{Z}}
+\newcommand{\hilbert}{\symcal{H}}
+\newcommand{\ltwor}{\ltwo(\rr)}
+\newcommand{\poly}{\symcal{P}}
+\newcommand{\schwartz}{\symcal{S}}
+\newcommand{\schwartzr}{\schwartz(\rr)}
+\newcommand{\schwartzrthree}{\schwartz(\rr^3)}
+\newcommand{\dist}{\schwartz^\times}
+\newcommand{\distr}{\dist(\rr)}
+\newcommand{\distar}{\schwartz^*(\rr)}
+\newcommand{\anti}{\overline{\distr}}
+\renewcommand{\i}{\symrm{i}}
+\renewcommand{\pi}{\muppi}
+\newcommand{\family}{\symcal{F}}
+\newcommand{\lift}{\hat{D}}
+\newcommand{\w}{w\kern-1pt}
+\newcommand{\spec}{\sigma}
+\newcommand{\resolvent}{\symup{\rho}}
+\newcommand{\lap}{∆}
+\newcommand{\xone}{\symbfit{x}^{(1)}}
+\newcommand{\xtwo}{\symbfit{x}^{(2)}}
+\newcommand{\rvec}{\symbfit{r}}
+\newcommand{\yvec}{\symbfit{y}}
+\newcommand{\angsone}{\tilde{L}_1}
+\newcommand{\angstwo}{\tilde{L}_2}
+\newcommand{\angsthree}{\tilde{L}_3}
+\newcommand{\lvecsquare}{\tilde{\symbfit{L}}^2}
+\newcommand{\parr}{\frac{\partial}{\partial r}}
+\newcommand{\partheta}{\frac{\partial}{\partial \theta}}
+\newcommand{\parphi}{\frac{\partial}{\partial \phi}}
+\newcommand{\levi}{\epsilon_{ijk}}
+\DeclareMathOperator{\spann}{span}
+\newcommand{\sutwo}{\operatorname{\symfrak{su}}(2)}
+\newcommand{\sltwoc}{\operatorname{\symfrak{sl}}(2;\cc)}
+\newcommand{\hrel}{\tilde{H}_\text{rel}}
+\newcommand{\lthree}{\tilde{L}_3}
+\newcommand{\flme}{F^m_{l,E}}
+\newcommand{\SUtwo}{\operatorname{SU}(2)}
+\newcommand{\SOthree}{\operatorname{SO}(3)}
+\newcommand{\bhilbert}{\hilbert_{\symrm{b}}}
+\newcommand{\eigen}{\operatorname{Eig}}
+\newcommand{\ltwoa}{\ltwo(\tilde{A})}
+\newcommand{\sphe}{Y_l^m}
+\newcommand{\me}{m_{\symup{e}}}
+\newcommand{\mn}{m_{\symup{N}}}
+
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\delimsize\vert\mathopen{}#2}
+
+\DeclarePairedDelimiterX\set[1]\lbrace\rbrace{\setaux#1}
+\def\setaux#1|{#1\;\delimsize\vert\;}
+
+\usepackage{makecell}
+
+\title{Schuller's Lectures on Classical Mechanics}
+\author{Frederic Schuller\\Apoorv Potnis}
+\date{\today}
+
+\definecolor{springerprogressinmathphysblue}{RGB}{0, 55, 103}
+\definecolor{springerred}{RGB}{220, 40, 32}
+\definecolor{blueone}{RGB}{9, 99, 147}
+\definecolor{bluetwo}{RGB}{0, 67, 114}
+\definecolor{bluethree}{RGB}{212, 218, 234}
+
+
+\usepackage{eso-pic}
+\usepackage{ifluatex}
+
+\ifluatex
+\everymath=\expandafter{%
+\the\everymath%
+\Umathsubshiftdown\textstyle=2pt}
+\everydisplay=\expandafter{%
+\the\everydisplay%
+\Umathsubshiftdown\displaystyle=2pt}
+\everymath=\expandafter{%
+    \the\everymath%
+    \Umathsupshiftup\textstyle=4pt}
+\everydisplay=\expandafter{%
+    \the\everydisplay%
+    \Umathsupshiftup\displaystyle=4pt}
+\Umathsubtopmax\textstyle=10pt
+\Umathsubshiftdown\textstyle=0pt
+\fi
+
+\usepackage{hyperref}
+\hypersetup{citecolor=red, pdfencoding=auto, psdextra, pageanchor=true, colorlinks=true, linkcolor=red, breaklinks=true, urlcolor=blue, pdftitle={Schuller – The Hydrogen Atom}, bookmarksopen=true, pdfauthor={Apoorv Potnis}, pdfsubject={The Hydrogen Atom}, unicode=true, pdftoolbar=true, pdfmenubar=true, pdfstartview={FitH}, pdfkeywords={Frederic Schuller, Hydrogen atom, Hydrogen-like systems, one-electron systems, Quantum Mechanics, Mathematical Physics, Lecture Notes}}
+\usepackage{cleveref}
+
+\AtBeginDocument{%
+    \addtocontents{toc}{\protect\setmathfont[StylisticSet={3}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Book.otf}\setmathfont[range={\symfrak,\symbffrak}, BoldFont = NewCMMath-Bold.otf]{NewCMMath-Regular.otf}}
+}
+
+\title{The Hydrogen Atom}
+% \author{Frederic Schuller\\Apoorv Potnis}
+\author{}
+\date{\vspace{-5ex}}
+
+\begin{document}
+
+    \maketitle
+
+    These are lecture notes by Apoorv Potnis of the lecture `\selectlanguage{ngerman}Das Wasserstoffatom\selectlanguage{english}' or `The Hydrogen Atom', given by \textbf{Prof.\@ Frederic Paul Schuller}, as the eighteenth lecture in the course `\selectlanguage{ngerman}Theoretische Physik 2: Theoretische Quantenmechanik\selectlanguage{english}' in 2014/15 at the \selectlanguage{ngerman}Friedrich-Alexander-Universität Erlangen-Nürnberg\selectlanguage{english}. While the original lecture is in German, these notes are in English and have been prepared using YouTube's automatic subtitle translation tool. The lecture is available at \url{https://www.youtube.com/watch?v=mcM4S3IMMvI&list=PLPO5pgr_frzTeqa_thbltYjyw8F9ehw7v&index=18} and at \url{https://www.fau.tv/clip/id/4511}.
+
+    The source code, updates and corrections to this document can be found on this GitHub repository: \url{https://github.com/apoorvpotnis/schuller_hydrogen}. The source code, along with some other files, is embedded in this \textsc{pdf}. Comments and corrections can be mailed at \href{mailto:apoorvpotnis@gmail.com}{\texttt{apoorvpotnis@gmail.com}} or opened as an issue in the GitHub repository. This \textsc{pdf} was compiled on \today.
+
+    In these notes, we assume that the reader is already familiar with all of the material covered in Schuller's lectures in his English quantum mechanics series~\cite{SchullerVideos, Schuller}. We shall make frequent use of concepts and results from these lectures without mentioning.
+
+    \tableofcontents
+
+    \section{Hydrogen-like systems}
+    
+    Hydrogen-like systems are systems consisting of a central positive nuclear charge and a single electron. Let the central nuclear charge be of magnitude \(+Z\), the mass of the nucleus be \(m_{\symup{N}}\) and the mass of the electron be \(m_{\symup{e}}\). The electron has a unit charge in our units. The reduced mass \(\mu\) of the system is then \[\mu = \frac{\mn\me}{\mn + \me}.\]
+
+    \nocite{*}
+    \printbibliography[heading=bibintoc]
+    % \printindex
+\end{document}
