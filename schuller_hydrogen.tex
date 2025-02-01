@@ -560,20 +560,18 @@ BoldSlantedFeatures={FakeSlant=0.25},%
 \usepackage{ifluatex}
 
 \ifluatex
-\everymath=\expandafter{%
-\the\everymath%
-\Umathsubshiftdown\textstyle=2pt}
-\everydisplay=\expandafter{%
-\the\everydisplay%
-\Umathsubshiftdown\displaystyle=2pt}
-\everymath=\expandafter{%
+%   \everymath=\expandafter{%
+%     \the\everymath%
+%     \Umathsubshiftdown\textstyle=2pt}
+%   \everydisplay=\expandafter{%
+%     \the\everydisplay%
+%     \Umathsubshiftdown\displaystyle=2pt}
+  \everymath=\expandafter{%
     \the\everymath%
     \Umathsupshiftup\textstyle=4pt}
-\everydisplay=\expandafter{%
+  \everydisplay=\expandafter{%
     \the\everydisplay%
     \Umathsupshiftup\displaystyle=4pt}
-\Umathsubtopmax\textstyle=10pt
-\Umathsubshiftdown\textstyle=0pt
 \fi
 
 \usepackage{hyperref}
@@ -603,7 +601,7 @@ BoldSlantedFeatures={FakeSlant=0.25},%
 
     \section{Hydrogen-like systems}
     
-    Hydrogen-like systems are systems consisting of a central positive nuclear charge and a single electron. Let the central nuclear charge be of magnitude \(+Z\), the mass of the nucleus be \(m_{\symup{N}}\) and the mass of the electron be \(m_{\symup{e}}\). The electron has a unit charge in our units. The reduced mass \(\mu\) of the system is then \[\mu = \frac{\mn\me}{\mn + \me}.\]
+    Hydrogen-like systems are systems consisting of a central positive nuclear charge and a single electron. Let the central nuclear charge be of magnitude \(+Z\), the mass of the nucleus be \(m_{\symup{N}}\) and the mass of the electron be \(m_{\symup{e}}\). The reduced mass of the system is then \(\mu = \mn\me / \mn + \me\).
 
     \nocite{*}
     \printbibliography[heading=bibintoc]
