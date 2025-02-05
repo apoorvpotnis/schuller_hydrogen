@@ -473,7 +473,7 @@ BoldSlantedFeatures={FakeSlant=0.25},%
 \newcommand{\cc}{\symbb{C}}
 \newcommand{\nn}{\symbb{N}_0}
 \newcommand{\dirac}{\symrm{\delta}}
-\renewcommand*{\hbar}{\symrm{^^^^0127}}
+% \renewcommand*{\hbar}{\symrm{^^^^0127}}
 \renewcommand{\i}{\symrm{i}}
 \newcommand{\e}{\symrm{e}}
 \newcommand{\cinfinity}{\symrm{C}^\infty}
@@ -603,7 +603,27 @@ BoldSlantedFeatures={FakeSlant=0.25},%
 
     \section{Hydrogen-like systems}
     
-    Hydrogen-like systems are systems consisting of a central positive nuclear charge and a single electron. Let the central nuclear charge be of magnitude \(+Z\), the mass of the nucleus be \(m_{\symup{n}}\) and the mass of the electron be \(m_{\symup{e}}\). The electron has unit negative charge in our units. The reduced mass \(\mu\) of the system is then \[\mu = \frac{\mn\me}{\mn + \me}.\]
+    Hydrogen-like systems are systems consisting of a central positive nuclear charge and a single electron. Let the central nuclear charge be of magnitude \(+Z \in \nn\), the mass of the nucleus be \(m_{\symup{n}}\) and the mass of the electron be \(m_{\symup{e}}\). The electron has unit negative charge in our units. The reduced mass \(\mu\) of the system is then 
+    \[
+        \mu = \frac{\mn\me}{\mn + \me}.
+    \] The potential \(V(r)\) is \[V(r) = \frac{-Ae^2}{r},\] where \(a \in \rr\), and \(e\) is the charge of an electron. The gravitational potential \(V_{\text{gravitational}} = -G/r\) is negligible compared to the electrostatic potential, as \(a \ggg G\). 
+
+    \section{Asymptotic behaviour}
+
+    Recall from the last lecture that we were interested in finding the solutions of the equation 
+    \[
+        -\frac{\hbar^2}{2\mu} \lap u_E(r) + \left(\frac{\hbar^2}{2\mu} \frac{l(l+1)}{r^2} + V(r)\right) u_E (r) = E u_E (r).\tag{\textasteriskcentered}\label{eigen}
+    \]
+    This was the differential equation which described the radial dependence of the solutions for the two-body problem. We has considered the \textit{anstaz} 
+    \[
+        \flme(r, \theta, \phi) = \frac{u_E(r)}{r}\sphe(\theta, \phi),
+    \]
+    where \(\flme(r, \theta, \phi)\) is the solution of the following equation.
+    \begin{align*}
+        \tilde{H}_\text{rel} \flme(r, \theta, \phi) = &-\frac{\hbar^2}{2\mu}\left(\frac{1}{r}\left(\frac{\partial}{\partial r}\right)^2 (r\flme(r, \theta, \phi))- \frac{\lvecsquare}{r^2}F\right)\\
+        &+ V(r)\flme(r, \theta, \phi),
+    \end{align*}
+    with \(F \in \ltwoa\). Here, \(\tilde{A} \coloneq (0, +\infty) \times (0,\pi) \times (0,2\pi)\), and \(\sphe(\theta, \phi)\) are the spherical harmonics.
 
     \nocite{*}
     \printbibliography[heading=bibintoc]
